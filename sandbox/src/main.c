@@ -21,11 +21,21 @@
 //
 // ------------------------------------------------------------------------------
 
-#include <Test.h>
+#include <Spark/Core/Logger.h>
+#include <Spark/Core/Asserts.h>
 
 int main()
 {
-    print_int(75);
+    STRACE("Test msg %f", 3.14159f);
+    SDEBUG("Test msg %f", 3.14159f);
+    SINFO("Test msg %f", 3.14159f);
+    SWARN("Test msg %f", 3.14159f);
+    SERROR("Test msg %f", 3.14159f);
+    SFATAL("Test msg %f", 3.14159f);
+
+//    SASSERT(FALSE)
+    SASSERT_MSG(1 == 0, "Test assert")
+//    SASSERT_DEBUG(2 == 0)
 
     return 0;
 }

@@ -16,8 +16,9 @@ typedef int64_t s64;
 typedef float f32;
 typedef double f64;
 
+typedef s8 b8;
 typedef s32 b32;
-typedef s8 byte;
+typedef u8 byte;
 
 #if defined(__clang__) || defined(__gcc__)
     #define STATIC_ASSERT _Static_assert

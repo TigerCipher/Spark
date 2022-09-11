@@ -3,7 +3,7 @@
 
 set(CMAKE_C_STANDARD 17)
 
-add_library(Engine SHARED src/Test.c src/Common.h src/Test.h)
+add_library(Engine SHARED src/Spark/Common.h src/Spark/Core/Logger.h src/Spark/Core/Logger.c src/Spark/Core/Asserts.h)
 set_target_properties(Engine PROPERTIES LINKER_LANGUAGE C)
 target_include_directories(Engine PRIVATE src)
 target_include_directories(Engine PRIVATE $ENV{VULKAN_SDK}/Include)
