@@ -23,6 +23,7 @@
 
 #include <Spark/Core/Logger.h>
 #include <Spark/Core/Asserts.h>
+#include <Spark/Platform/Platform.h>
 
 int main()
 {
@@ -33,9 +34,16 @@ int main()
     SERROR("Test msg %f", 3.14159f);
     SFATAL("Test msg %f", 3.14159f);
 
-//    SASSERT(FALSE)
-    SASSERT_MSG(1 == 0, "Test assert")
-//    SASSERT_DEBUG(2 == 0)
+    platform_state state;
+    if(platform_startup(&state, "Sandbox", 100, 100, 1920, 1080))
+    {
+        while(TRUE)
+        {
+            platform_pump_messages(&state);
+        }
+    }
+
+    platform_shutdown(&state);
 
     return 0;
 }

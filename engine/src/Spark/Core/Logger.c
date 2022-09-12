@@ -22,7 +22,7 @@
 // ------------------------------------------------------------------------------
 #include "Logger.h"
 #include "Asserts.h"
-
+#include "Spark/Platform/Platform.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -51,7 +51,7 @@ void shutdown_logger()
 
 void log_message(log_level level, const char* msg, ...)
 {
-    b8   err = level > 3;
+    b8   err = level > LOG_LEVEL_WARN;
     char buffer [ 32000 ];
     memset(buffer, 0, sizeof(buffer));
 
@@ -64,5 +64,8 @@ void log_message(log_level level, const char* msg, ...)
     char out_message [ 32000 ];
     sprintf(out_message, "%s %s\n", level_strings [ level ], buffer);
 
-    printf("%s", out_message);
+//    printf("%s", out_message);
+    if(err) platform_console_write_error(out_message, level);
+    else
+        platform_console_write(out_message, level);
 }
