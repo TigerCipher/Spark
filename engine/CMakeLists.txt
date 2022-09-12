@@ -3,7 +3,7 @@
 
 set(CMAKE_C_STANDARD 17)
 
-add_library(Engine SHARED src/Spark/Common.h src/Spark/Core/Logger.h src/Spark/Core/Logger.c src/Spark/Core/Asserts.h src/Spark/Platform/Platform.h src/Spark/Platform/PlatformWindows.c)
+add_library(Engine SHARED src/Spark/Common.h src/Spark/Core/Logger.h src/Spark/Core/Logger.c src/Spark/Core/Asserts.h src/Spark/Platform/Platform.h src/Spark/Platform/PlatformWindows.c src/Spark/Core/Application.h src/Spark/Core/Application.c src/Spark/Game.h src/Spark/Entrypoint.h)
 set_target_properties(Engine PROPERTIES LINKER_LANGUAGE C)
 target_include_directories(Engine PRIVATE src)
 

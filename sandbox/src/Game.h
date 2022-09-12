@@ -15,31 +15,25 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 //
-// File Name: main.c
-// Date File Created: 9/11/2022
+// File Name: Game.h
+// Date File Created: 9/12/2022
 // Author: Matt
 //
 // ------------------------------------------------------------------------------
 
-#include "Game.h"
+#ifndef SPARK_GAME_H
+#define SPARK_GAME_H
+#include <Spark/Common.h>
+#include <Spark/Game.h>
 
-#include <Spark/Entrypoint.h>
-#include <Spark/Platform/Platform.h>
-
-b8 create_game(game* out_game)
+typedef struct game_state
 {
-    out_game->app_desc.pos_x = 100;
-    out_game->app_desc.pos_y = 100;
-    out_game->app_desc.width = 1920;
-    out_game->app_desc.height = 1080;
-    out_game->app_desc.name = "Spark Sandbox";
-    out_game->initialize = game_initialize;
-    out_game->update = game_update;
-    out_game->render = game_render;
-    out_game->on_resize = game_on_resize;
+    f32 delta;
+} game_state;
 
-    out_game->state = platform_allocate(sizeof(game_state), FALSE);
+b8 game_initialize(game* game_inst);
+b8 game_update(game* game_inst, f32 delta);
+b8 game_render(game* game_inst, f32 delta);
+void game_on_resize(game* game_inst, s32 width, s32 height);
 
-    return TRUE;
-}
-
+#endif //SPARK_GAME_H

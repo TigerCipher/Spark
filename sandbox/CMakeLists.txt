@@ -1,6 +1,6 @@
 set(CMAKE_C_STANDARD 17)
 
-add_executable(sandbox src/main.c)
+add_executable(sandbox src/main.c src/Game.h src/Game.c)
 target_include_directories(sandbox PRIVATE src ../engine/src)
 target_link_libraries(sandbox Engine)
 add_compile_definitions(_DEBUG SIMPORT)

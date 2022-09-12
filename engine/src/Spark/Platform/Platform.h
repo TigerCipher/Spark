@@ -31,14 +31,14 @@ typedef struct platform_state_
     void* internal_state;
 } platform_state;
 
-SAPI b8 platform_startup(platform_state* plat_state, const char* app_name, s32 x, s32 y, s32 width, s32 height);
+b8 platform_startup(platform_state* plat_state, const char* app_name, s32 x, s32 y, s32 width, s32 height);
 
-SAPI void platform_shutdown(platform_state* plat_state);
+void platform_shutdown(platform_state* plat_state);
 
-SAPI b8 platform_pump_messages(platform_state* plat_state);
+b8 platform_pump_messages(platform_state* plat_state);
 
-void* platform_allocate(u64 size, b8 aligned);
-void  platform_free(void* block, b8 aligned);
+SAPI void* platform_allocate(u64 size, b8 aligned);
+SAPI void  platform_free(void* block, b8 aligned);
 void* platform_zero_memory(void* block, u64 size);
 void* platform_copy_memory(void* dest, const void* src, u64 size);
 void* platform_set_memory(void* dest, s32 value, u64 size);

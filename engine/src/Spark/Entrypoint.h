@@ -15,31 +15,49 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 //
-// File Name: main.c
-// Date File Created: 9/11/2022
+// File Name: Entrypoint.h
+// Date File Created: 9/12/2022
 // Author: Matt
 //
 // ------------------------------------------------------------------------------
 
+#ifndef SPARK_ENTRYPOINT_H
+#define SPARK_ENTRYPOINT_H
+
+#include "Core/Application.h"
+#include "Core/Logger.h"
 #include "Game.h"
 
-#include <Spark/Entrypoint.h>
-#include <Spark/Platform/Platform.h>
+extern b8 create_game(game* out_game);
 
-b8 create_game(game* out_game)
+int main()
 {
-    out_game->app_desc.pos_x = 100;
-    out_game->app_desc.pos_y = 100;
-    out_game->app_desc.width = 1920;
-    out_game->app_desc.height = 1080;
-    out_game->app_desc.name = "Spark Sandbox";
-    out_game->initialize = game_initialize;
-    out_game->update = game_update;
-    out_game->render = game_render;
-    out_game->on_resize = game_on_resize;
+    game game_inst;
+    if(!create_game(&game_inst))
+    {
+        SFATAL("Failed to create the game");
+        return -1;
+    }
 
-    out_game->state = platform_allocate(sizeof(game_state), FALSE);
+    if(!game_inst.initialize || !game_inst.update || !game_inst.render || !game_inst.on_resize)
+    {
+        SFATAL("Game does not implement all the required functions");
+        return -2;
+    }
 
-    return TRUE;
+    if(!application_create(&game_inst))
+    {
+        SFATAL("Failed to create application");
+        return 1;
+    }
+    if(!application_run())
+    {
+        SFATAL("Applicationed failed to shutdown properly");
+        return 2;
+    }
+
+    return 0;
 }
 
+
+#endif //SPARK_ENTRYPOINT_H
